@@ -1,75 +1,85 @@
-# TODO : 
+# C Coding Style Guide
 
-- Do not use gets(): use fgets() instead.
-Do not use sprintf(): use snprintf() instead.
-Do not use strcat(): use strncat() instead.
-Do not use strcpy(): use strncpy() instead.
-- Use define for array EVERY TIME
-- Make a .clang-format
-- Template file :
-    - .h
-    - .c
+This document defines the conventions and best practices for writing C code in embedded systems (e.g., STM32).   
+It aims to improve readability, maintainability, and consistency across all projects.
+
+---
+
+# Tables of Contents : 
+- [C Coding Style Guide](#c-coding-style-guide)
+- [Tables of Contents :](#tables-of-contents-)
+- [1. General guideline](#1-general-guideline)
+- [2. Naming Conventions](#2-naming-conventions)
+  - [Functions](#functions)
+  - [Struct/Enum/Union](#structenumunion)
+    - [Struct](#struct)
+    - [Enum](#enum)
+    - [Union](#union)
+- [3. How to used variable outside of his file](#3-how-to-used-variable-outside-of-his-file)
+  - [Using extern](#using-extern)
+  - [Using GETTER/SETTER](#using-gettersetter)
+- [4. Using pointer](#4-using-pointer)
+- [Assert](#assert)
+- [Function commentaire](#function-commentaire)
+  - [Python script for VSCode](#python-script-for-vscode)
+  - [Advance C Stuff](#advance-c-stuff)
 
 
-## How to used variable outside of his file
-### Using extern
-```C
-// app.c
-uint8_t someVariable = 0;
+# 1. General guideline
 
-// main.h
-extern uint8_t someVariable;    // WRONG, we explicitly said that this variable is from somewhere else.
-                                // This can cause probleme and it's harder to maintain, specialy if do the same on other file like `fdcan.h`, `usart.h` etc..
-```
+- **Never use unsafe functions**:
+  - Do **not** use `gets()` → use `fgets()` instead.
+  - Do **not** use `sprintf()` → use `snprintf()` instead.
+  - Do **not** use `strcat()` → use `strncat()` instead.
+  - Do **not** use `strcpy()` → use `strncpy()` instead.
 
-```C
-// app.c
-uint8_t someVariable = 0;      
 
-// app.h
-extern uint8_t someVariable;    // GOOD
+- **Always use `#define` for array sizes.**  
+  This improves readability and maintainability.
+    ```C
+    char array[10] = {0}                            // WRONG
+    #define NB_ELEMENT                              10
+    char array[NB_ELEMENT] = {0}                    // GOOD
 
-// main.h
-#include "app.h"                 // GOOD, we import the extern variable
-// someVariable is in this scope
+    void processArray(char anArray[10]);            // WRONG
+    void processArray(char anArray[NB_ELEMENT]);    // GOOD
+    ```
 
-// flash.h
-#include "app.h"                 // GOOD, we import the extern variable
-// someVariable is in this scope
-```
-> The issues with this is that if you have many extern variable inside `app.h` all of them will be expose when we import the .h file
 
-### Using GETTER/SETTER
-```C
-// app.c
-static uint8_t someVariable = 0;
-uint8_t appGet_someVariable(void){return someVariable};
-void appSet_someVariable(uint8_t newVariable){someVariable = newVariable};
-// app.h
-uint8_t appGet_someVariable(void);
-void appSet_someVariable(uint8_t newVariable);
+- **Always check the return value of a function**, specialy the `HAL` function   
+    ```C
+    HAL_ADC_Start_DMA(&hadc1, &adc1RefOutFiltr, hadc1.Init.NbrOfConversion);                    // WRONG
 
-// main.c
-#include "app.h"
-uint8_t variable = appGet_someVariable();
-```
-> This make only variable with GET/SET function available on other side. But you have to do this for each variable you want outside of `app.c`
+    HAL_StatusTypeDef status = HAL_OK;
+    status = HAL_ADC_Start_DMA(&hadc1, &adc1RefOutFiltr, hadc1.Init.NbrOfConversion);          // GOOD
+    if (status != HAL_OK)
+        Error_Handler();
+    ```
 
-## Function name
-> If the function will be used outside his file, used the name of the file inside the function name
+
+
+# 2. Naming Conventions
+
+## Functions
+
+> If the function is used **outside its file**, include the module name in the function name.
 ```C
 // app.c
 void process_something(){}          // WRONG
 void appProcess_something(){}       // GOOD, we know where the function is from
 
-
 static void process_something(){}   // GOOD, can't used this function outside app.c
 ```
 
-# How to declare Struct/Enum
+## Struct/Enum/Union
+
 > Always used `typedef`.   
-## Struct 
+> If the typedef is for function struct, used `fn_` prefix. (Cf Union example)
+
+### Struct 
+
 > For struct, used `s_`  with the name of the struct after, so that when we declare a variable, we know it's a struct type.
+
 ```C
 typedef struct {
     uint8_t data,
@@ -82,7 +92,8 @@ typedef struct s_myStruct {
 ```
 > Anonymous struct vs Named struct : https://stackoverflow.com/questions/54752861/using-an-anonymous-struct-vs-a-named-struct-with-typedef
 
-## Enum 
+### Enum 
+
 > For enum, used `e_`  with the name of the enum after, so that when we declare a variable, we know it's an enum type.
 ```C
 typedef enum e_myEnum {
@@ -121,10 +132,78 @@ typedef enum e_myEnum {
 > Enum without value will start at 0.   
 > Try to specify the value
 
-TODO : typedef function need "_fn",
-TODO: Migth need to do the union aswell.
+### Union
 
-# Using pointer 
+> For union, used `u_`  with the name of the union after, so that when we declare a variable, we know it's an union type.
+
+```C
+union u_defaultValue {
+    float floatValue;
+    char charBufferValue[SERIAL_NUMBER_LEN];
+}u_defaultValue;
+
+typedef union  u_fn_SomeFunction{
+    float (*ratioSigne)(uint8_t);
+    float (*ratioSigneSynchro)(uint8_t);
+    float (*ratioADC)(void);
+    char * (*serialNumber)(void);
+    // VOID FUNCTION, NOT USED
+    // void (*voidFunc)(void);  
+    // int (*ff)(float,int);
+} u_fn_SomeFunction;                    // Union of function, so we add '_fn'
+```
+
+
+# 3. How to used variable outside of his file
+
+## Using extern
+
+```C
+// app.c
+uint8_t someVariable = 0;
+
+// main.h
+extern uint8_t someVariable;    // WRONG, we explicitly said that this variable is from somewhere else.
+                                // This can cause probleme and it's harder to maintain, specialy if do the same on other file like `fdcan.h`, `usart.h` etc..
+```
+
+```C
+// app.c
+uint8_t someVariable = 0;      
+
+// app.h
+extern uint8_t someVariable;    // GOOD
+
+// main.h
+#include "app.h"                 // GOOD, we import the extern variable
+// someVariable is in this scope
+
+// flash.h
+#include "app.h"                 // GOOD, we import the extern variable
+// someVariable is in this scope
+```
+> The issues with this is that if you have many extern variable inside `app.h` all of them will be expose when we import the .h file
+
+## Using GETTER/SETTER
+
+```C
+// app.c
+static uint8_t someVariable = 0;
+uint8_t appGet_someVariable(void){return someVariable};
+void appSet_someVariable(uint8_t newVariable){someVariable = newVariable};
+// app.h
+uint8_t appGet_someVariable(void);
+void appSet_someVariable(uint8_t newVariable);
+
+// main.c
+#include "app.h"
+uint8_t variable = appGet_someVariable();
+```
+> This make only variable with GET/SET function available on other side. But you have to do this for each variable you want outside of `app.c`
+
+
+# 4. Using pointer 
+
 > Always initialize pointer ! **ALWAYS**
 ```C
 uint8_t *ptr                    // WRONG, Wild pointer
@@ -135,31 +214,17 @@ uint8_t *ptr = &someVariable;   // GOOD
 > If you want to see what is a wild pointer, see `examples/WildPointer/segFault.c`
 
 
-# Always check the return value of a function
-> Always check the return value of a function, specialy the `HAL` function
-```C
-HAL_ADC_Start_DMA(&hadc1, &adc1RefOutFiltr, hadc1.Init.NbrOfConversion);                    // WRONG
+TODO : 
 
-HAL_StatusTypeDef status = HAL_OK;
-status = HAL_ADC_Start_DMA(&hadc1, &adc1RefOutFiltr, hadc1.Init.NbrOfConversion);          // GOOD
-if (status != HAL_OK)
-    Error_Handler();
-```
+- Make a .clang-format
+- Template file :
+    - .h
+    - .c
 
-# Use #define
-```C
-char array[10] = {0}                            // WRONG
-#define NB_ELEMENT                              10
-char array[NB_ELEMENT] = {0}                    // GOOD
+# Assert
 
-void processArray(char anArray[10]);            // WRONG
-void processArray(char anArray[NB_ELEMENT]);    // GOOD
-```
-> Always used a define. **ALWAYS**   
-
-
-
-
+# Function commentaire
+## Python script for VSCode
 
 ## Advance C Stuff
 - Macro-X
