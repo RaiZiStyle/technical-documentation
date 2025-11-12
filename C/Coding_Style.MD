@@ -4,25 +4,23 @@ This document defines the conventions and best practices for writing C code in e
 It aims to improve readability, maintainability, and consistency across all projects.
 
 ---
-
-# Tables of Contents : 
 - [C Coding Style Guide](#c-coding-style-guide)
-- [Tables of Contents :](#tables-of-contents-)
 - [1. General guideline](#1-general-guideline)
-- [2. Naming Conventions](#2-naming-conventions)
+- [2. Code formatage](#2-code-formatage)
+  - [Install clang-format](#install-clang-format)
+  - [How to format](#how-to-format)
+- [3. Naming Conventions](#3-naming-conventions)
   - [Functions](#functions)
   - [Struct/Enum/Union](#structenumunion)
-    - [Struct](#struct)
-    - [Enum](#enum)
-    - [Union](#union)
-- [3. How to used variable outside of his file](#3-how-to-used-variable-outside-of-his-file)
+- [4. How to used variable outside of his file](#4-how-to-used-variable-outside-of-his-file)
   - [Using extern](#using-extern)
   - [Using GETTER/SETTER](#using-gettersetter)
-- [4. Using pointer](#4-using-pointer)
+- [5. Using pointer](#5-using-pointer)
 - [Assert](#assert)
 - [Function commentaire](#function-commentaire)
   - [Python script for VSCode](#python-script-for-vscode)
   - [Advance C Stuff](#advance-c-stuff)
+
 
 
 # 1. General guideline
@@ -56,9 +54,35 @@ It aims to improve readability, maintainability, and consistency across all proj
         Error_Handler();
     ```
 
+# 2. Code formatage 
+
+We use  [.clang-format](.clang-format).   
+Usefull website to see change for clang-format : https://zed0.co.uk/clang-format-configurator/  
+
+## Install clang-format
+
+- Windows : https://github.com/llvm/llvm-project/releases, select `LLVM-X.Y.Z-win64.exe` or `LLVM-X.Y.Z-win32.exe` (Admin require)
+- Linux : `apt install clang-format`
+    
+## How to format  
+
+### In commande line: 
+
+`clang-format -i <myfile.c/h>`
+
+### In VSCode     
+
+1. Install [Clang-format Extention](https://marketplace.visualstudio.com/items?itemName=xaver.clang-format)     
+2. Format with Clang-Format     
+
+### In CubeIDE 
+
+1. Install `CppStyle` extention. "Help" => "Eclispe Marketplace" => "CppStyle"  
+2. Define path of clang-format for `CppStyle`. "Preferences" => "C/C++" => "CppStyle" => "Clang-format Path" : Put clang-format.exe
+3. Switch formatter to clang-format. "Preferences" => "C/C++" => "Code Style" => "Formatter" => "Code Formatter" : CppStyle
 
 
-# 2. Naming Conventions
+# 3. Naming Conventions
 
 ## Functions
 
@@ -154,7 +178,7 @@ typedef union  u_fn_SomeFunction{
 ```
 
 
-# 3. How to used variable outside of his file
+# 4. How to used variable outside of his file
 
 ## Using extern
 
@@ -202,7 +226,7 @@ uint8_t variable = appGet_someVariable();
 > This make only variable with GET/SET function available on other side. But you have to do this for each variable you want outside of `app.c`
 
 
-# 4. Using pointer 
+# 5. Using pointer 
 
 > Always initialize pointer ! **ALWAYS**
 ```C
@@ -214,17 +238,19 @@ uint8_t *ptr = &someVariable;   // GOOD
 > If you want to see what is a wild pointer, see `examples/WildPointer/segFault.c`
 
 
+
+-------------
+
 TODO : 
 
-- Make a .clang-format
 - Template file :
     - .h
     - .c
 
 # Assert
-
+TODO
 # Function commentaire
 ## Python script for VSCode
-
+TODO
 ## Advance C Stuff
-- Macro-X
+- TODO: Macro-X 

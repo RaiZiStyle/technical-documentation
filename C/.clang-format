@@ -1,0 +1,80 @@
+BasedOnStyle: Google
+
+# TabWidth (unsigned)
+# The number of columns used for tab stops.
+TabWidth: 4
+
+# IndentWidth (unsigned)
+# The number of columns to use for indentation.
+IndentWidth: 4
+
+Language: Cpp
+
+# Standard (LanguageStandard)
+# Format compatible with this standard, e.g. use A<A<int> > instead of A<A<int>> for LS_Cpp03.
+# Possible values:
+#   LS_Cpp03 (in configuration: Cpp03) Use C++03-compatible syntax.
+#   LS_Cpp11 (in configuration: Cpp11) Use features of C++11 (e.g. A<A<int>> instead of A<A<int> >).
+#   LS_Auto (in configuration: Auto) Automatic detection based on the input.
+Standard: Cpp11
+
+# Pointer and reference alignment style. Possible values: Left, Right, Middle.
+PointerAlignment: Right
+
+# AlignConsecutiveAssignments (bool)
+# If true, aligns consecutive assignments.
+# This will align the assignment operators of consecutive lines. This will result in formattings like
+# int aaaa = 12;
+# int b    = 23;
+# int ccc  = 23;
+AlignConsecutiveAssignments: true
+
+
+# AlignEscapedNewlinesLeft (bool)
+# If true, aligns escaped newlines as far left as possible. Otherwise puts them into the right-most column.
+# Example : 
+# ```C
+# AlignEscapedNewlinesLeft: true
+#  #define MY_MACRO(a, b, c) a = b + \
+#                            c + \
+#                            1;
+# AlignEscapedNewlinesLeft: false
+# #define MY_MACRO(a, b, c) a = b +                                 \
+#                           c +                                     \
+#                           1;
+# ```
+AlignEscapedNewlinesLeft: false
+
+# AlignAfterOpenBracket (BracketAlignmentStyle)
+# If true, horizontally aligns arguments after an open bracket.
+# This applies to round brackets (parentheses), angle brackets and square brackets.
+# Possible values:
+#   BAS_Align (in configuration: Align) Align parameters on the open bracket, e.g.:
+#   someLongFunction(argument1,
+#                    argument2);
+#   BAS_DontAlign (in configuration: DontAlign) Don’t align, instead use ContinuationIndentWidth, e.g.:
+#   someLongFunction(argument1,
+#   argument2);
+#   BAS_AlwaysBreak (in configuration: AlwaysBreak) Always break after an open bracket, if the parameters don’t fit on a single line, e.g.:
+#   someLongFunction(
+#       argument1, argument2);
+AlignAfterOpenBracket: Align
+
+# AlignOperands (bool)
+# If true, horizontally align operands of binary and ternary expressions.
+# Specifically, this aligns operands of a single expression that needs to be split over multiple lines, e.g.:
+# int aaa = bbbbbbbbbbbbbbb +
+#           ccccccccccccccc;
+AlignOperands:   Align
+
+# AlignTrailingComments (bool)
+# If true, aligns trailing comments.
+AlignTrailingComments: true
+
+
+# Make possible to format aline value of #define base on the block of define.
+AlignConsecutiveMacros: true
+AlignConsecutiveDeclarations: true
+
+
+ColumnLimit:     120
