@@ -78,3 +78,15 @@ AlignConsecutiveDeclarations: true
 
 
 ColumnLimit:     120
+
+BinPackArguments: false
+
+# garde les accolades de l’initialiseur sur la ligne du {.
+BreakBeforeBraces: Attach
+
+# Permet de garder les lignes courtes intactes
+AllowShortBlocksOnASingleLine: false
+AllowShortCaseLabelsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: InlineOnly
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
