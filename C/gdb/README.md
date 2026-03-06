@@ -9,6 +9,7 @@
 
 
 
+Show pointer as an array : `p *pointer@size` (ex: `p *ptr@10` to show 10 elements of the array pointed by ptr)
 
 
 ## Frontend debugging : 
