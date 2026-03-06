@@ -66,6 +66,19 @@ int chunk_list_insert(Chunk_List *list, void *start, size_t size) {
     return -1;
 }
 
+// O(Alloced)
+void chunk_list_dump(const Chunk_List *list, const char *messageDebug) {
+    printf("Chunks %s (%zu):\n", messageDebug, list->count);
+    for (size_t i = 0; i < list->count; i++) {
+        printf("  start : %p, size : %zu\n", list->chunks[i].start, list->chunks[i].size);
+        /* code */
+    }
+}
+
+void chunk_list_merge(Chunk_List *list){
+    
+}
+
 // Equivalent of malloc
 void *heap_alloc(size_t size) {
     //  const size_t size_words = (size + sizeof(uintptr_t) - 1) / sizeof(uintptr_t);
@@ -91,14 +104,7 @@ void *heap_alloc(size_t size) {
     return NULL;
 }
 
-// O(Alloced)
-void chunk_list_dump(const Chunk_List *list, const char *messageDebug) {
-    printf("Chunks %s (%zu):\n", messageDebug, list->count);
-    for (size_t i = 0; i < list->count; i++) {
-        printf("  start : %p, size : %zu\n", list->chunks[i].start, list->chunks[i].size);
-        /* code */
-    }
-}
+
 
 // O(Alloced*2)?
 void heap_free(void *ptr) {

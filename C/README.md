@@ -5,3 +5,9 @@
 - [Coding_Style.md](Coding_Style.MD) : Coding style guide for C language. It aims to improve readability, maintainability, and consistency across all projects.
 - [.clang-format](.clang-format) : My Clang format configuration file.
 - [.clang-format-Google](.clang-format-Google) : Clang format configuration file based on Google's style guide.
+
+
+
+
+## Things to read : 
+https://jorenar.com/blog/less-known-c
