@@ -9,10 +9,17 @@
 
 #define SRC_FOLDER   "WildPointer/"
 
+#define UNDEFINED_BEHAVIOR_SRC  "Undefined_Behavior.c"
+#define UNDEFINED_BEHAVIOR_ELF  "Undefined_Behavior.elf"
+
 int main(int argc, char** argv) {
     NOB_GO_REBUILD_URSELF(argc, argv);
     Cmd cmd = {0};
     cmd_append(&cmd, "cc", "-Wall", "-Wextra", "-o", SRC_FOLDER"segFault.elf", SRC_FOLDER"segFault.c");
+    if (!cmd_run(&cmd)) return 1;
+
+
+    cmd_append(&cmd, "cc", UNDEFINED_BEHAVIOR_SRC, "-o", UNDEFINED_BEHAVIOR_ELF);
     if (!cmd_run(&cmd)) return 1;
     return 0;
 }

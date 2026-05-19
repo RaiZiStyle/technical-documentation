@@ -1,10 +1,10 @@
-/* segFault.c — wild pointer non initialisé */
+/* segFault.c — wild pointer non initialise */
 #include <stdio.h>
 
 int main(void) {
-    int *p; /* p n'est pas initialisé -> valeur indéterminée */
+    int *p; /* p is not initialise, Undefined behavior */
     printf("p vaut %p\n", (void *)p);
-    *p = 12; /* Déréférencement d'un wild pointer -> comportement indéfini */
+    *p = 12; /* Dereferencing a wild pointer -> Undefined behavior */
     printf("écrit %d à l'adresse %p\n", 12, (void *)p);
     return 0;
 }

@@ -11,3 +11,8 @@
 
 ## Things to read : 
 https://jorenar.com/blog/less-known-c
+
+## Librairies intresting : 
+[stb](https://github.com/nothings/stb)
+[libffi](https://github.com/libffi/libffi)
+[nob.h](https://github.com/tsoding/nob.h)
