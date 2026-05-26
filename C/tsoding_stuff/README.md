@@ -3,23 +3,21 @@ Youtube URL : https://www.youtube.com/@Tsoding
 
 
 
-# Structure : 
+## Structure
 
-- `shadow-data-trick/` : 
-__Sources__: From [Youtube VOD](https://www.youtube.com/watch?v=gtk3RZHwJUA) 
-__Description__: Explore how to implement dynamic arrays and hash tables in C by storing metadata outside the array pointer. Witness the creation of custom macros to handle memory allocation, reallocation, and deallocation seamlessly. 
+### `shadow-data-trick/`
+- **Source**: [Tsoding VOD](https://www.youtube.com/watch?v=gtk3RZHwJUA)
+- **Description**: Explore how to implement dynamic arrays and hash tables in C by storing metadata outside the array pointer. Witness the creation of custom macros to handle memory allocation, reallocation, and deallocation seamlessly. 
 
-- `malloc/` : 
-__Sources__: From [Youtube VOD](https://www.youtube.com/watch?v=gtk3RZHwJUA)
-__Description__: Dive into the world of memory management by crafting a custom `malloc` implementation in C.
+### `malloc/`
+- **Source**: [Tsoding VOD](https://www.youtube.com/watch?v=gtk3RZHwJUA)
+- **Description**: Explores memory management by creating a custom `malloc` implementation in C.
 
-
-- `ppm.cpp`
-__Sources__ : from [Tsoding](https://www.youtube.com/watch?v=xNX9H_ZkfNE)   
-__Description__: Video in two part    
-First is how to use the PPM format to generate image and then feed it to ffmpeg to create a video.   
-Second part is how we implement shader in CPU from a 195 chars of GLSL from XorDev (Original tweet : https://x.com/XorDev/status/1894123951401378051)
-
-Gifs of the video part one : ![ppm](gifs/ppm.gif)
-
-Gifs of the video part two :  ![ppm_shader](gifs/ppm_shader.gif)
+### `ppm.cpp`
+- **Source**: [Tsoding Video](https://www.youtube.com/watch?v=xNX9H_ZkfNE)
+- **Description**: 
+  - **Part 1**: Explains how to use the PPM format to generate images and feed them to `ffmpeg` to create a video.
+  - **Part 2**: Implements a CPU shader based on a 195-character GLSL snippet from XorDev ([Original Tweet](https://x.com/XorDev/status/1894123951401378051)).
+- **GIFs**:
+  - Part 1: ![ppm](gifs/ppm.gif)
+  - Part 2: ![ppm_shader](gifs/ppm_shader.gif)
