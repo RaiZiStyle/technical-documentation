@@ -5,6 +5,7 @@ Usage : `gcc nob.c -o nob.elf`
 Then : ./nob.elf     # This will build the examples
 
 TODO: Since nob is shell but in c, we should be able to walk this dir and compile every .c
+See : https://github.com/tsoding/nob.h/blob/main/how_to/015_walk_dirs/nob.c
 */
 #define NOB_IMPLEMENTATION
 #define NOB_STRIP_PREFIX
