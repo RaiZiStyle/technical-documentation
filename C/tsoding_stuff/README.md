@@ -9,7 +9,10 @@ Youtube URL : https://www.youtube.com/@Tsoding
 __Sources__: From [Youtube VOD](https://www.youtube.com/watch?v=gtk3RZHwJUA) 
 __Description__: Explore how to implement dynamic arrays and hash tables in C by storing metadata outside the array pointer. Witness the creation of custom macros to handle memory allocation, reallocation, and deallocation seamlessly. 
 
-- `malloc/` : Implementing your own version of `malloc` in C. [Youtube VOD](https://www.youtube.com/watch?v=sZ8GJ1TiMdk)
+- `malloc/` : 
+__Sources__: From [Youtube VOD](https://www.youtube.com/watch?v=gtk3RZHwJUA)
+__Description__: Dive into the world of memory management by crafting a custom `malloc` implementation in C.
+
 
 - `ppm.cpp`
 __Sources__ : from [Tsoding](https://www.youtube.com/watch?v=xNX9H_ZkfNE)   
