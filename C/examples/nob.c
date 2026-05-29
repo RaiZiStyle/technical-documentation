@@ -16,8 +16,11 @@ See : https://github.com/tsoding/nob.h/blob/main/how_to/015_walk_dirs/nob.c
 #define UNDEFINED_BEHAVIOR_ELF    "Undefined_Behavior.elf"
 #define XMACRO_SRC                "XMacro.c"
 #define XMACRO_ELF                "XMacro_preprocessed.c"
+// PTR Function example
 #define PTR_FUNCTION_APP_SRC      "PTR_Function/app.c"
 #define PTR_FUNCTION_APPFLASH_SRC "PTR_Function/appFlash.c"
+#define PTR_FUNCTION_DBG_CONSOLE_SRC "PTR_Function/dbgConsol.c"
+#define PTR_FUNCTION_MAIN_SRC "PTR_Function/main.c"
 
 int main(int argc, char **argv) {
     NOB_GO_REBUILD_URSELF(argc, argv);
@@ -31,7 +34,8 @@ int main(int argc, char **argv) {
     // if (!cmd_run(&cmd))
     //     return 1;
 
-    cmd_append(&cmd, "cc", PTR_FUNCTION_APP_SRC, PTR_FUNCTION_APPFLASH_SRC, "-o", "app.elf");
+    // cmd_append(&cmd, "arm-none-eabi-gcc.exe", "-std=gnu11", "-mcpu=cortex-m4", "--specs=nano.specs", "-mfloat-abi=hard", "-mthumb",  PTR_FUNCTION_APP_SRC, PTR_FUNCTION_APPFLASH_SRC, "-o", "app.elf");
+    cmd_append(&cmd, "cc", PTR_FUNCTION_APP_SRC, PTR_FUNCTION_APPFLASH_SRC, PTR_FUNCTION_MAIN_SRC, "-o", "app.elf");
     if (!cmd_run(&cmd))
         return 1;
 

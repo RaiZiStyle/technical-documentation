@@ -19,11 +19,16 @@
 
 // #include "adc.h"
 #include "app.h"
-// #include "dbgConsol.h"
-// #include "stm32Flash.h"
+#include "dbgConsol.h"
+#include "stm32Flash.h"
+
 ////////////////////////////////////////
-// DEFINES
+// VARIABLES DECLARATIONS
+
+////////////////////////////////////////
+// LOCAL FUNCTIONS DECLARATIONS
 static int snprintf_float_zeropad(float value, int width, int precision, char *buf, size_t size);
+
 ////////////////////////////////////////
 // TYPES DEFINITIONS
 func_entry bufferFunction[NUMBER_DATA_IN_FLASH] = {
@@ -39,17 +44,10 @@ func_entry bufferFunction[NUMBER_DATA_IN_FLASH] = {
     {FUNC_SERIAL_NUMBER, .getFunction.serialNumber = app_GetSerialNumber, .setFunction.serialNumber = app_SetSerialNumber, .defaultValue.charBufferValue = SERIAL_NUMBER},
     {FUNC_VERSION_NUMBER, .getFunction.versionNumber = app_GetVersionNumber, .setFunction.versionNumber = app_SetVersionNumber, .defaultValue.charBufferValue = VERSION_NUMBER},
 };
+
 ////////////////////////////////////////
 // FUNCTIONS DECLARATIONS
-/*************************
- * Function : 	 funcName
- * Parameters :  funcParameter1 -> funcParamDecription1
- * 				 funcParameter2 -> funcParamDecription2
- * Returns :	 funcReturn
- * Description : TODO_COMMENT:
- **************************/
-// WORKING
-bool appFlash_SaveDataToFlash(bool forceWrite) {
+bool  appFlash_SaveDataToFlash(bool forceWrite) {
     bool     writeInFlash                                                   = false;
     bool     returnStatus                                                   = false;
     char     valuesAsStrings[NUMBER_DATA_IN_FLASH][STRING_MAX_LEN_IN_FLASH] = {0};
@@ -154,7 +152,6 @@ bool appFlash_SaveDataToFlash(bool forceWrite) {
     return returnStatus;
 }
 
-// TO FINISH
 bool appFlash_GetDataFromFlash() {
     bool readFromFlash = false;
 
@@ -232,9 +229,7 @@ bool appFlash_GetDataFromFlash() {
     return readFromFlash;
 }
 
-#warning "TODO, faire la partie erase aussi ! "
-////////////////////////////////////////
-// VARIABLES DECLARATIONS
+
 
 ////////////////////////////////////////
 // EXTERNALS FUNCTIONS DEFINITIONS
@@ -273,6 +268,7 @@ static int snprintf_float_zeropad(float value, int width, int precision, char *b
 
     return tt;
 }
+
 
 ////////////////////////////////////////
 // IRQ FUNCTIONS DEFINITIONS
